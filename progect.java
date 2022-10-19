@@ -7,12 +7,12 @@ public class progect {
     
         int lenghtArray = arr.length;
 
-        // Выстариваем массив в виде сортирующего дерева (двоичной кучи)
+        // Выстраиваем массив в виде сортирующего дерева (двоичной кучи)
         for (int i = lenghtArray / 2 - 1; i >= 0; i--)
             heapify(arr, lenghtArray, i);
 
         // Один за другим извлекаем элементы из кучи   
-        for (int i=lenghtArray-1; i>=0; i--)
+        for (int i = lenghtArray-1; i>=0; i--)
         {
             // Меняем корень (максимальный элемент) с последним элементом кучи
             swap(arr, 0, i);
@@ -28,27 +28,26 @@ public class progect {
         arr[secondIndex] = temp;
     }
 
-    // Процедура для преобразования в двоичную кучу поддерева с корневым узлом i, что является
-    // индексом в arr[]. n - размер кучи
+    // Процедура для преобразования в двоичную кучу от родительского узла i вниз до листьев
      void heapify(int arr[], int n, int i) {
     
-        int indexMaxValue = i; // Инициализируем корень как наибольший элемент
-        int leftChildIndex = 2*i + 1; // левый = 2*i + 1
-        int rightChildIndex = 2*i + 2; // правый = 2*i + 2
+        int indexLargestValue = i; // считаем родительский элемент как наибольший
+        int leftChildIndex = 2*i + 1; // левый дочерний = 2*i + 1
+        int rightChildIndex = 2*i + 2; // правый дочерний = 2*i + 2
 
            // Проверка наличия левого дочернго элемента и сравнение с родительским элементом
-        if (leftChildIndex < n && arr[leftChildIndex] > arr[indexMaxValue])
-        indexMaxValue = leftChildIndex;
+        if (leftChildIndex < n && arr[leftChildIndex] > arr[indexLargestValue])
+        indexLargestValue = leftChildIndex;
 
           // Проверка наличия правого дочернго элемента и сравнение с родительским элементом
-        if (rightChildIndex < n && arr[rightChildIndex] > arr[indexMaxValue])
-        indexMaxValue = rightChildIndex;
+        if (rightChildIndex < n && arr[rightChildIndex] > arr[indexLargestValue])
+        indexLargestValue = rightChildIndex;
        // Если самый большой элемент не родительский элемент
-        if (indexMaxValue != i)
+        if (indexLargestValue != i)
         {
-            swap(arr, i, indexMaxValue);
-            
-            heapify(arr, n, indexMaxValue);  // Рекурсивно преобразуем в двоичную кучу затронутое поддерево
+            swap(arr, i, indexLargestValue);
+            // printArray(arr);
+            heapify(arr, n, indexLargestValue);  // Рекурсивно преобразуем затронутое поддерево в двоичную кучу
         }
     }
 
@@ -62,12 +61,11 @@ public class progect {
 
     public static void main(String args[]) {
     
-        int arr[] = {12, 11, 13, 5, 6, 9};
-        
+        int arr[] = {12, 16, 13, 17, 22, 19};
+        printArray(arr);
         progect object = new progect();
         object.sort(arr);
-                
-        System.out.println("Sorted array is");
+        System.out.println("Sorted array: ");
         printArray(arr);
     }
 }
